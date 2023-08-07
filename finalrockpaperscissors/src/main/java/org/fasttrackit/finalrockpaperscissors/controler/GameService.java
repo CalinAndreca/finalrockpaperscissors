@@ -15,7 +15,7 @@ public class GameService {
     private static final int WINS_FOR_MEDIUM = 50;
     private static final int WINS_FOR_HARD = 100;
 
-    public String play(String playerName, Move playerMove) {
+    public GameResult play(String playerName, Move playerMove) {
         Move computerMove = generateComputerMove();
         Move result = determineWinner(playerMove, computerMove);
 
@@ -50,14 +50,16 @@ public class GameService {
 
         playerScoreRepository.save(playerScore);
 
-        // Return game result
+        String gameResult;
         if (result == null) {
-            return "It's a tie!";
+            gameResult = "It's a tie!";
         } else if (result == playerMove) {
-            return playerName + " wins!";
+            gameResult = playerName + " wins!";
         } else {
-            return "Computer wins!";
+            gameResult = "Computer wins!";
         }
+
+        return new GameResult(gameResult, computerMove);
     }
 
     public void resetScore(String playerName) {

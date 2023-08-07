@@ -14,7 +14,7 @@ public class GameController {
     private GameService gameService;
 
     @PostMapping("/play")
-    public String playGame(@RequestBody PlayerRequest playerRequest) {
+    public GameResult playGame(@RequestBody PlayerRequest playerRequest) {
         String playerName = playerRequest.getPlayerName();
         Move playerMove = playerRequest.getPlayerMove();
         return gameService.play(playerName, playerMove);
